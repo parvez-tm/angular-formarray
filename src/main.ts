@@ -34,6 +34,10 @@ export class App {
   //   return this.form.controls;
   // }
 
+  // get f(): AbstractControl[] {
+  //   return (this.form as FormArray).controls;
+  // }
+
   get f(): FormGroup[] {
     return (this.form.controls as FormGroup[]);
   }
@@ -59,6 +63,10 @@ export class App {
     )
     this.form = this.fb.array(group)
     
+  }
+
+  onSubmit(){
+    console.log(this.form.value,"a")
   }
 
 }
