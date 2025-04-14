@@ -1,1 +1,11 @@
 /* Add application styles & imports to this file! */
+table, th, td{
+    border: 1px solid;
+    border-collapse: collapse;
+}
+th, td{
+    padding: 10px;
+}
+th{
+    background-color: khaki;
+}

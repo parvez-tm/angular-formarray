@@ -1,0 +1,21 @@
+<form >
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+            </tr>
+        </thead>
+        <tbody>
+        @for(control of f; let i = $index; track i) {
+            <tr [formGroup]="control">
+              <td>
+                <input 
+                  type="checkbox" 
+                  formControlName="completed"
+                >
+              </td>
+            </tr>
+          }
+        </tbody>
+    </table>
+</form>
