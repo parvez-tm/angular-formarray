@@ -18,5 +18,115 @@
           }
         </tbody>
     </table>
-    <button type="button" (click)="onSubmit()">Submit</button>
+    <button type="button" style="margin: 20px 0 20px 0;" (click)="onSubmit()">Submit</button>
 </form>
+
+
+
+<div class="container">
+  <table>
+      <thead>
+          <tr>
+              <th>Directive</th>
+              <th>Used For</th>
+              <th>Binds To</th>
+              <th>Example Use</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr>
+              <td class="code">[formGroup]</td>
+              <td>Top-level or variable FormGroup</td>
+              <td>Instance in TS code</td>
+              <td class="code">&lt;form [formGroup]="myForm"&gt;</td>
+          </tr>
+          <tr>
+              <td class="code">formGroupName</td>
+              <td>Named nested group within parent</td>
+              <td>A key in the parent</td>
+              <td class="code">&lt;div formGroupName="address"&gt;</td>
+          </tr>
+      </tbody>
+  </table>
+  <div class="divider"></div>
+</div>
+
+
+<div class="container">
+  <h2>1. Why Does <code>[formGroup]="control"</code> Work Here?</h2>
+  
+  <ul>
+    <li>
+      <strong>Reason:</strong>
+      <p>
+        Each item in your <code>FormArray</code> is explicitly created as a <code>FormGroup</code> (via <code>this.fb.group()</code> in 
+        <code>buildForm()</code>).
+      </p>
+      
+
+    </li>
+    
+    <li>
+      <strong>Key Point:</strong>
+      <p>
+        <code>[formGroup]</code> expects a <code>FormGroup</code>, and your <code>FormArray</code> (<code>this.form</code>) contains only <code>FormGroup</code> 
+        items. The type assertion <code>as FormGroup[]</code> in the <code>f()</code> getter is safe because of this.
+      </p>
+    </li>
+  </ul>
+</div>
+
+
+<div class="container">
+  <h2>2. Why No <code>formGroupName</code> or <code>formArrayName</code> Directives?</h2>
+  
+  <ul>
+    <li>
+      <strong>Reason:</strong>
+      <p>
+        You're binding each row directly to a <code>FormGroup</code> using <code>[formGroup]="control"</code>. This is valid when:
+      </p>
+      
+      <ul class="sub-list">
+        <li>You don't need a parent <code>FormGroup</code> wrapper (your <code>&lt;form&gt;</code> has no <code>[formGroup]</code> binding).</li>
+        <li>You're directly iterating over <code>FormGroup</code> items from the <code>FormArray</code>.</li>
+      </ul>
+    </li>
+  </ul>
+</div>
+
+<div class="summary-container">
+  <h2>Summary of Key Takeaways</h2>
+  
+  <table class="takeaways-table">
+    <thead>
+      <tr>
+        <th>Part</th>
+        <th>Why It Works</th>
+        <th>Potential Improvement</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="code-cell"><code>[formGroup]="control"</code></td>
+        <td>Each <code>control</code> is a <code>FormGroup</code></td>
+        <td>Wrap in parent <code>FormGroup</code> for scalability</td>
+      </tr>
+      <tr>
+        <td class="code-cell"><code>formControlName="completed"</code></td>
+        <td>Matches <code>FormGroup</code> structure</td>
+        <td>Use typed forms <code>(FormControl&lt;boolean&gt;)</code></td>
+      </tr>
+      <tr>
+        <td class="code-cell"><code>track i</code></td>
+        <td>Works for static lists</td>
+        <td>Use <code>track control.value.id</code> if possible</td>
+      </tr>
+      <tr>
+        <td class="code-cell">No <code>formArrayName</code></td>
+        <td>Direct <code>FormArray</code> iteration</td>
+        <td>Add if nested in a <code>FormGroup</code></td>
+      </tr>
+    </tbody>
+  </table>
+ </div>
